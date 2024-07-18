@@ -22,7 +22,7 @@ const RequestInfoHandler = {
   canHandle (handlerInput) {
     const request = handlerInput.requestEnvelope.request
     return (request.type === 'IntentRequest'
-      && request.intent.name === 'RequestInfoIntent')
+      && request.intent.name === 'RequestInfo')
   },
   handle (handlerInput) {
     const request = handlerInput.requestEnvelope.request

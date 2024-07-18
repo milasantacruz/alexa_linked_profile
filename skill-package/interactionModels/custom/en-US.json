@@ -1,0 +1,78 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "slots": [],
+          "name": "HelloWorldIntent",
+          "samples": [
+            "hello",
+            "how are you",
+            "say hi world",
+            "say hi",
+            "hi",
+            "say hello world",
+            "say hello"
+          ]
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        },
+        {
+          "slots": [
+            {
+              "name": "perfil",
+              "type": "perfil"
+            }
+          ],
+          "name": "RequestInfo",
+          "samples": [
+            "informacion de mi {perfil}",
+            "informacion de {perfil}",
+            "cual es mi {perfil}",
+            "mi {perfil}",
+            "cuales son los datos de mi {perfil}",
+            "sabes mi informacion",
+            "cual es mi informacion",
+            "informacion de mi cuenta"
+          ]
+        }
+      ],
+      "types": [
+        {
+          "values": [
+            {
+              "name": {
+                "synonyms": [
+                  "datos",
+                  "perfil",
+                  "cuenta"
+                ],
+                "value": "perfil"
+              }
+            }
+          ],
+          "name": "perfil"
+        }
+      ],
+      "invocationName": "lucia te cuida"
+    }
+  }
+}

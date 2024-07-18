@@ -8,8 +8,9 @@ const Alexa = require('ask-sdk-core');
 const RequestInterceptor = require('./interceptors/RequestInterceptor');
 const ResponseInterceptor = require('./interceptors/ResponseInterceptor');
 const RequestInfoHandler = require('./handlers/RequestInfoHandler');
-const LocalizationInterceptor = require('./interceptors/LocalizationInterceptor')
-const GetLinkedInfoInterceptor = require('./interceptors/GetLinkedInfoInterceptor')
+const LocalizationInterceptor = require('./interceptors/LocalizationInterceptor');
+const GetLinkedInfoInterceptor = require('./interceptors/GetLinkedInfoInterceptor');
+const CheckAccountLinkedHandler = require('./handlers/CheckAccountLinkedHandler');
 
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
@@ -156,6 +157,7 @@ exports.handler = Alexa.SkillBuilders.custom()
             GetLinkedInfoInterceptor
         ).addRequestHandlers(
         LaunchRequestHandler,
+        CheckAccountLinkedHandler,
         HelloWorldIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,

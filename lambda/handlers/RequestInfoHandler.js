@@ -14,6 +14,7 @@ function getResolvedSlotIDValue (request, slotName) {
     return slot.resolutions.resolutionsPerAuthority[0].values[0].value.id
   }
   return null
+  
 }
 
 

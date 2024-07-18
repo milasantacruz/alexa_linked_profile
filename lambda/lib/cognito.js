@@ -29,9 +29,10 @@ function getUserData (accToken) {
     }
     cognitoISP.getUser(cognitoParams, (error, data) => {
       if (error) {
+        log.info('getUserData ERROR::::', data)
         reject(error)
       } else {
-        log.info('getUserData success', data)
+        log.info('getUserData SUCCESS:::', data)
         resolve(data)
       }
     })

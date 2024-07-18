@@ -11,14 +11,13 @@
   "devDependencies": {
     "jest": "^29.7.0",
     "serverless": "^4.1.12",
-    "serverless-iam-roles-per-function": "^1.0.4",
-    "serverless-pseudo-parameters": "^2.4.0"
+    "serverless-iam-roles-per-function": "^1.0.4"
   },
   "dependencies": {
-    "ask-sdk-core": "^2.7.0",
+    "ask-sdk-core": "^2.14.0",
     "ask-sdk-local-debug": "^1.1.0",
-    "ask-sdk-model": "^1.19.0",
-    "aws-sdk": "^2.326.0",
+    "ask-sdk-model": "^1.86.0",
+    "aws-sdk": "^2.1659.0",
     "i18next": "^10.5.0",
     "i18next-sprintf-postprocessor": "^0.2.2"
   }

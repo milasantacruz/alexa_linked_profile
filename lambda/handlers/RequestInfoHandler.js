@@ -1,15 +1,13 @@
 const AWS = require('aws-sdk');
 const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider();
 
-
-
-
 const RequestInfoHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-        && handlerInput.requestEnvelope.request.intent.name === 'AccountLinkIntent';
+        && handlerInput.requestEnvelope.request.intent.name === 'RequestInfo';
     },
     async handle(handlerInput) {
+      console.log('RequestInfoHandler::::: RequestInfoHandler');
         const userId = handlerInput.requestEnvelope.session.user.userId;
         const userPoolId = 'your-user-pool-id'; // Replace with your user pool ID
         const clientId = 'your-app-client-id'; // Replace with your app client ID

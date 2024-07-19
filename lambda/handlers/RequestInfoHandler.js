@@ -9,8 +9,8 @@ const RequestInfoHandler = {
     async handle(handlerInput) {
       console.log('RequestInfoHandler::::: RequestInfoHandler');
         const userId = handlerInput.requestEnvelope.session.user.userId;
-        const userPoolId = 'your-user-pool-id'; // Replace with your user pool ID
-        const clientId = 'your-app-client-id'; // Replace with your app client ID
+        const userPoolId = process.env.USER_POOL_ID; // Replace with your user pool ID
+        const clientId = process.env.APP_CLIENT_ID; // Replace with your app client ID
 
         const params = {
             UserPoolId: userPoolId,

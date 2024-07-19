@@ -15,7 +15,8 @@ const AccountLinkingInterceptor = {
           log.info('AccountLinkingInterceptor:::', accessToken, refreshToken);
         } catch (error) {
           // Handle account linking failure
-          console.error('Account linking failed:', error);
+          log.info('Account linking failed:::', error);
+
           return handlerInput.responseBuilder
             .speak('Sorry, there was an issue linking your account. Please try again later.')
             .getResponse();

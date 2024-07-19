@@ -10,7 +10,7 @@
   "license": "Apache License",
   "devDependencies": {
     "jest": "^29.7.0",
-    "serverless": "^4.1.12",
+    "serverless": "^3.8.0",
     "serverless-iam-roles-per-function": "^1.0.4"
   },
   "dependencies": {

@@ -30,3 +30,5 @@ const AccountLinkingInterceptor = {
     // and return the tokens
     log.info('AccountLinkingInterceptor:::', linkToken);
   }
+
+  module.exports = AccountLinkingInterceptor;

@@ -1,5 +1,7 @@
 const AccountLinkingInterceptor = {
     async process(handlerInput) {
+        console.log("AccountLinkingInterceptor:::");
+
       const { request } = handlerInput.requestEnvelope;
       if (request.type === 'AlexaSkillEvent.ProvideLinkToken') {
         try {

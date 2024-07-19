@@ -1,6 +1,9 @@
+const log = require("../lib/log");
+
+
 const AccountLinkingInterceptor = {
     async process(handlerInput) {
-        console.log("AccountLinkingInterceptor:::");
+        log.info('AccountLinkingInterceptor', handlerInput.requestEnvelope);
 
       const { request } = handlerInput.requestEnvelope;
       if (request.type === 'AlexaSkillEvent.ProvideLinkToken') {

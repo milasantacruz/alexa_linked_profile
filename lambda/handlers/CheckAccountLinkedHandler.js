@@ -5,6 +5,7 @@ const CheckAccountLinkedHandler = {
     return !utils.isAccountLinked(handlerInput)
   },
   handle (handlerInput) {
+    console.log('CheckAccountLinkedHandler::::: handle')
     const requestAttributes = handlerInput.attributesManager.getRequestAttributes()
     const speakOutput = requestAttributes.t('NEED_TO_LINK_MESSAGE', 'SKILL_NAME')
     return handlerInput.responseBuilder.

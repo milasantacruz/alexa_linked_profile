@@ -5,10 +5,10 @@ const utils = require('../lib/utils')
 const GetLinkedInfoInterceptor = {
   
   async process (handlerInput) {
-    log.info('GetLinkedInfoInterceptor::: getUserData: ')
+    const userData = await cognito.getUserData(handlerInput.requestEnvelope.session.user.accessToken)
+    log.info('GetLinkedInfoInterceptor: getUserData: ', userData.Username)
     if (utils.isAccountLinked(handlerInput)) {
-      const userData = await cognito.getUserData(handlerInput.requestEnvelope.session.user.accessToken)
-      log.info('GetLinkedInfoInterceptor: getUserData: ', userData)
+      log.info('GetLinkedInfoInterceptor::: IS LINKED: ', userData.Username)
       const sessionAttributes = handlerInput.attributesManager.getSessionAttributes()
       if (userData.Username !== undefined) {
         sessionAttributes.auth = true

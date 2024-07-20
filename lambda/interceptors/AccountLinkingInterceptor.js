@@ -7,7 +7,7 @@ const AccountLinkingInterceptor = {
 
       const { request } = handlerInput.requestEnvelope;
       log.info('AccountLinkingInterceptor:::TYPE', request.type);
-      if (request.type === 'AlexaSkillEvent.ProvideLinkToken') {
+      if (request.type === 'IntentRequest') {
         try {
           // Handle successful account linking
           const { accessToken, refreshToken } = await handleAccountLinking(request.linkToken);

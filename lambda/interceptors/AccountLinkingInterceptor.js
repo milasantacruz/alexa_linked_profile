@@ -6,13 +6,13 @@ const AccountLinkingInterceptor = {
         log.info('AccountLinkingInterceptor:::', handlerInput.requestEnvelope);
 
       const { request } = handlerInput.requestEnvelope;
-      log.info('AccountLinkingInterceptor:::', request);
+      log.info('AccountLinkingInterceptor:::', request.type);
       if (request.type === 'AlexaSkillEvent.ProvideLinkToken') {
         try {
           // Handle successful account linking
           const { accessToken, refreshToken } = await handleAccountLinking(request.linkToken);
           // Store tokens securely and update session attributes
-          log.info('AccountLinkingInterceptor:::', accessToken, refreshToken);
+          log.info('AccountLinkingInterceptor:::TOKEN', accessToken, refreshToken);
         } catch (error) {
           // Handle account linking failure
           log.info('Account linking failed:::', error);
@@ -21,9 +21,11 @@ const AccountLinkingInterceptor = {
             .speak('Sorry, there was an issue linking your account. Please try again later.')
             .getResponse();
         }
+      }else{
+        log.info('AccountLinkingInterceptor:::', 'no account linking');
       }
-    }
-  };
+      }
+    };
   
   function handleAccountLinking(linkToken) {
     // Exchange the link token for access and refresh tokens

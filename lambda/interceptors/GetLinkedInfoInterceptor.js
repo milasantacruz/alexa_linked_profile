@@ -17,10 +17,10 @@ const GetLinkedInfoInterceptor = {
         handlerInput.attributesManager.setSessionAttributes(sessionAttributes)
       } else {
         sessionAttributes.auth = false
-        log.error('GetLinkedInfoInterceptor: No user data was found.')
+        log.error('GetLinkedInfoInterceptor:::No user data was found.')
       }
     }else{
-      log.error('GetLinkedInfoInterceptor: No user data was found.')  
+      log.error('GetLinkedInfoInterceptor:::NOT LINKED.')  
     }
   }
 }

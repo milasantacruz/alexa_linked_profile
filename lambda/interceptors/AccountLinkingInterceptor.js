@@ -3,10 +3,10 @@ const log = require("../lib/log");
 
 const AccountLinkingInterceptor = {
     async process(handlerInput) {
-        log.info('AccountLinkingInterceptor:::', handlerInput.requestEnvelope);
+        log.info('AccountLinkingInterceptor:::EVENT', handlerInput.requestEnvelope);
 
       const { request } = handlerInput.requestEnvelope;
-      log.info('AccountLinkingInterceptor:::', request.type);
+      log.info('AccountLinkingInterceptor:::TYPE', request.type);
       if (request.type === 'AlexaSkillEvent.ProvideLinkToken') {
         try {
           // Handle successful account linking

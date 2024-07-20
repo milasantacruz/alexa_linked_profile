@@ -1,5 +1,6 @@
 const log = require("../lib/log");
-
+const AWS = require('aws-sdk');
+const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider();
 
 const AccountLinkingInterceptor = {
     async process(handlerInput) {
@@ -7,7 +8,7 @@ const AccountLinkingInterceptor = {
 
       const { request } = handlerInput.requestEnvelope;
       log.info('AccountLinkingInterceptor:::TYPE', request.type);
-      if (request.type === 'IntentRequest') {
+      if (request.type === 'AlexaSkillEvent.ProvideLinkToken') {
         try {
           // Handle successful account linking
           const { accessToken, refreshToken } = await handleAccountLinking(request.linkToken);
@@ -27,11 +28,23 @@ const AccountLinkingInterceptor = {
       }
     };
   
-  function handleAccountLinking(linkToken) {
-    // Exchange the link token for access and refresh tokens
-    // using your authentication service (e.g., Amazon Cognito)
-    // and return the tokens
-    log.info('AccountLinkingInterceptor:::', linkToken);
-  }
+    async function handleAccountLinking(linkToken) {
+        const params = {
+          ClientId: 'your-app-client-id', // Replace with your Amazon Cognito App Client ID
+          LinkToken: linkToken
+        };
+      
+        try {
+          const response = await cognitoIdentityServiceProvider.adminInitiateAuthWithLinkToken(params).promise();
+      
+          const { AuthenticationResult } = response;
+          const { AccessToken, RefreshToken } = AuthenticationResult;
+      
+          return { accessToken: AccessToken, refreshToken: RefreshToken };
+        } catch (error) {
+          console.error('Account linking failed:', error);
+          throw error;
+        }
+      }
 
   module.exports = AccountLinkingInterceptor;

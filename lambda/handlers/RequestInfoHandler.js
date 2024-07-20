@@ -8,7 +8,9 @@ const RequestInfoHandler = {
     },
     async handle(handlerInput) {
       console.log('RequestInfoHandler::::: RequestInfoHandler');
-        const userId = handlerInput.requestEnvelope.session.user.userId;
+      console.log(process.env.USER_POOL_ID);
+
+      const userId = handlerInput.requestEnvelope.session.user.userId;
         const userPoolId = process.env.USER_POOL_ID; // Replace with your user pool ID
         const clientId = process.env.APP_CLIENT_ID; // Replace with your app client ID
 
@@ -28,7 +30,7 @@ const RequestInfoHandler = {
                     clientId: clientId
                 })
                 .getResponse();
-
+            console.log(`response:${response}`)
             return linkingResponse;
         } catch (err) {
             console.log(err);

@@ -160,8 +160,8 @@ exports.handler = Alexa.SkillBuilders.custom()
             AccountLinkingInterceptor
         ).addRequestHandlers(
         LaunchRequestHandler,
-        RequestInfoHandler,
         CheckAccountLinkedHandler,
+        RequestInfoHandler,
         HelloWorldIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,

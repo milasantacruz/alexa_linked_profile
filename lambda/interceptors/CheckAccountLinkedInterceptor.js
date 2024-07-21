@@ -1,5 +1,4 @@
 
-const { v4: uuidv4 } = require('uuid');
 
 
 const CheckAccountLinkedInterceptor = {
@@ -9,13 +8,13 @@ const CheckAccountLinkedInterceptor = {
 
         if (!accessToken) {
             console.log("CheckAccountLinkedInterceptor::: no token");
-            const token = uuidv4();
+           
             const userPoolId ="us-east-1_MHOLeGbES"; // Replace with your user pool ID
             const clientId = "odrahfu5lgbutk3p6p18e8bgu"
             return handlerInput.responseBuilder
                 .addDirectivePayload({
                     type: 'Connections.SendRequest',
-                    token: token,
+                    token:  'static-test-token',
                     request: {
                         type: 'ConnectionRequest',
                         name: 'Lucia te cuida',

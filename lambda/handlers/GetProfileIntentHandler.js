@@ -9,6 +9,7 @@ const GetProfileIntentHandler = {
             && handlerInput.requestEnvelope.request.intent.name === 'RequestInfo';
     },
     async handle(handlerInput) {
+        console.log('GetProfileIntentHandler:::');
         const accessToken = handlerInput.requestEnvelope.session.user.accessToken;
 
         if (!accessToken) {

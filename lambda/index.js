@@ -157,7 +157,7 @@ exports.handler = Alexa.SkillBuilders.custom()
             RequestInterceptor,
             ResponseInterceptor,
             LocalizationInterceptor,
-            GetLinkedInfoInterceptor,
+            CheckAccountLinkedInterceptor,
         ).addRequestHandlers(
         LaunchRequestHandler,
         GetProfileIntentHandler,

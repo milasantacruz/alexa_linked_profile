@@ -1,5 +1,4 @@
-const Alexa = require('ask-sdk-core');
-const AWS = require('aws-sdk');
+
 const { v4: uuidv4 } = require('uuid');
 
 

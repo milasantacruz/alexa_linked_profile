@@ -12,7 +12,7 @@ const CheckAccountLinkedInterceptor = {
             const token = uuidv4();
             const userPoolId ="us-east-1_MHOLeGbES"; // Replace with your user pool ID
             const clientId = "odrahfu5lgbutk3p6p18e8bgu"
-            return handlerInput.responseBuilder
+            const response = handlerInput.responseBuilder
                 .addDirectivePayload({
                     type: 'Connections.SendRequest',
                     token: token,
@@ -26,6 +26,8 @@ const CheckAccountLinkedInterceptor = {
                     }
                 })
                 .getResponse();
+
+            return Promise.resolve(response);
         }
     }
 };

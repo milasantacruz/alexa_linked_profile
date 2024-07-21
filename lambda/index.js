@@ -7,12 +7,13 @@ const Alexa = require('ask-sdk-core');
 
 const RequestInterceptor = require('./interceptors/RequestInterceptor');
 const ResponseInterceptor = require('./interceptors/ResponseInterceptor');
+const CheckAccountLinkedInterceptor = require('./interceptors/CheckAccountLinkedInterceptor');
 const RequestInfoHandler = require('./handlers/RequestInfoHandler');
 const LocalizationInterceptor = require('./interceptors/LocalizationInterceptor');
 const GetLinkedInfoInterceptor = require('./interceptors/GetLinkedInfoInterceptor');
 const CheckAccountLinkedHandler = require('./handlers/CheckAccountLinkedHandler');
-const CheckAccountLinkedInterceptor = require('./interceptors/CheckAccountLinkedInterceptor');
 const GetProfileIntentHandler = require('./handlers/GetProfileIntentHandler');
+
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';

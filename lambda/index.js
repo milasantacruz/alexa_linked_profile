@@ -11,7 +11,7 @@ const RequestInfoHandler = require('./handlers/RequestInfoHandler');
 const LocalizationInterceptor = require('./interceptors/LocalizationInterceptor');
 const GetLinkedInfoInterceptor = require('./interceptors/GetLinkedInfoInterceptor');
 const CheckAccountLinkedHandler = require('./handlers/CheckAccountLinkedHandler');
-const AccountLinkingInterceptor = require('./interceptors/AccountLinkingInterceptor');
+const CheckAccountLinkedInterceptor = require('./interceptors/CheckAccountLinkedInterceptor');
 
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
@@ -156,8 +156,8 @@ exports.handler = Alexa.SkillBuilders.custom()
             RequestInterceptor,
             ResponseInterceptor,
             LocalizationInterceptor,
+            CheckAccountLinkedInterceptor,
             GetLinkedInfoInterceptor,
-            AccountLinkingInterceptor
         ).addRequestHandlers(
         LaunchRequestHandler,
         CheckAccountLinkedHandler,

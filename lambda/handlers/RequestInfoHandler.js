@@ -14,11 +14,16 @@ const RequestInfoHandler = {
       const clientId = "odrahfu5lgbutk3p6p18e8bgu"; // Replace with your app client ID
       console.log(userPoolId);
       console.log(clientId);
+      console.log(userId);
 
-        const params = {
-            UserPoolId: userPoolId,
-            ClientId: clientId,
-            Username: userId
+        const params = 
+        {
+            DestinationUser: {
+                ProviderAttributeName: 'Cognito', // This should be 'Cognito' for Cognito user pools
+                ProviderAttributeValue: userId, // The user ID of the user in your Cognito user pool
+                ProviderName: 'Cognito' // This should be 'Cognito' for Cognito user pools
+            },
+            UserPoolId: userPoolId // The ID of your Cognito user pool
         };
 
         try {

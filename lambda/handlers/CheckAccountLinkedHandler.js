@@ -14,7 +14,7 @@ const CheckAccountLinkedHandler = {
     const clientId = "odrahfu5lgbutk3p6p18e8bgu"; // Replace with your app client ID
 
     console.log('User Pool ID:', userPoolId);
-    console.log('Client ID:', clientId);
+    console.log(requestAttributes);
     return handlerInput.responseBuilder
       .speak(speakOutput)
       .withLinkAccountCard({

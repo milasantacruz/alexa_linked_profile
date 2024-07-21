@@ -12,7 +12,7 @@ const LocalizationInterceptor = require('./interceptors/LocalizationInterceptor'
 const GetLinkedInfoInterceptor = require('./interceptors/GetLinkedInfoInterceptor');
 const CheckAccountLinkedHandler = require('./handlers/CheckAccountLinkedHandler');
 const CheckAccountLinkedInterceptor = require('./interceptors/CheckAccountLinkedInterceptor');
-
+const GetProfileIntentHandler = require('./handlers/GetProfileIntentHandler');
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
@@ -157,11 +157,9 @@ exports.handler = Alexa.SkillBuilders.custom()
             ResponseInterceptor,
             LocalizationInterceptor,
             CheckAccountLinkedInterceptor,
-            GetLinkedInfoInterceptor,
         ).addRequestHandlers(
         LaunchRequestHandler,
-        CheckAccountLinkedHandler,
-        RequestInfoHandler,
+        GetProfileIntentHandler,
         HelloWorldIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,

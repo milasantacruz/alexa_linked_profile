@@ -1,23 +1,26 @@
 const Alexa = require('ask-sdk-core');
 const AWS = require('aws-sdk');
+const { v4: uuidv4 } = require('uuid');
 
-const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider();
 
 const CheckAccountLinkedInterceptor = {
     async process(handlerInput) {
         const accessToken = handlerInput.requestEnvelope.session.user.accessToken;
 
         if (!accessToken) {
+            const token = uuidv4();
+            const userPoolId ="us-east-1_MHOLeGbES"; // Replace with your user pool ID
+            const clientId = "odrahfu5lgbutk3p6p18e8bgu"
             return handlerInput.responseBuilder
                 .addDirectivePayload({
                     type: 'Connections.SendRequest',
-                    token: 'YOUR_TOKEN_HERE',
+                    token: token,
                     request: {
                         type: 'ConnectionRequest',
                         name: 'Lucia te cuida',
                         payload: {
-                            userPoolId: 'YOUR_USER_POOL_ID',
-                            clientId: 'YOUR_CLIENT_ID'
+                            userPoolId: userPoolId,
+                            clientId: clientId
                         }
                     }
                 })
@@ -25,3 +28,5 @@ const CheckAccountLinkedInterceptor = {
         }
     }
 };
+
+module.export = CheckAccountLinkedInterceptor;

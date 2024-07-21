@@ -6,7 +6,7 @@ const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider();
 const GetProfileIntentHandler = {
     canHandle(handlerInput) {
         return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            && handlerInput.requestEnvelope.request.intent.name === 'GetProfileIntent';
+            && handlerInput.requestEnvelope.request.intent.name === 'RequestInfo';
     },
     async handle(handlerInput) {
         const accessToken = handlerInput.requestEnvelope.session.user.accessToken;

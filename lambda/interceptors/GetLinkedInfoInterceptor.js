@@ -3,10 +3,12 @@ const cognito = require('../lib/cognito')
 const utils = require('../lib/utils')
 
 const GetLinkedInfoInterceptor = {
+  
   async process (handlerInput) {
+    log.info('GetLinkedInfoInterceptor: getLinkedInfo: ', handlerInput.requestEnvelope.session.user.accessToken)
     if (utils.isAccountLinked(handlerInput)) {
       const userData = await cognito.getUserData(handlerInput.requestEnvelope.session.user.accessToken)
-      log.info('GetLinkedInfoInterceptor: getUserData: ', userData)
+      log.info('GetLinkedInfoInterceptor::: IS LINKED: ', userData.Username)
       const sessionAttributes = handlerInput.attributesManager.getSessionAttributes()
       if (userData.Username !== undefined) {
         sessionAttributes.auth = true
@@ -15,8 +17,10 @@ const GetLinkedInfoInterceptor = {
         handlerInput.attributesManager.setSessionAttributes(sessionAttributes)
       } else {
         sessionAttributes.auth = false
-        log.error('GetLinkedInfoInterceptor: No user data was found.')
+        log.error('GetLinkedInfoInterceptor:::No user data was found.')
       }
+    }else{
+      log.error('GetLinkedInfoInterceptor:::NOT LINKED.')  
     }
   }
 }

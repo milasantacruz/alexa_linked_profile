@@ -17,13 +17,13 @@ const CheckAccountLinkedInterceptor = {
             return handlerInput.responseBuilder
                 .addDirectivePayload({
                     type: 'Connections.SendRequest',
-                    token: token,
+                    token,
                     request: {
                         type: 'ConnectionRequest',
                         name: 'Lucia te cuida',
                         payload: {
-                            userPoolId: userPoolId,
-                            clientId: clientId
+                            userPoolId,
+                            clientId
                         }
                     }
                 })

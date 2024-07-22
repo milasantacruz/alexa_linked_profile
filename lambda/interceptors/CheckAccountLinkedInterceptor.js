@@ -1,10 +1,11 @@
-const Alexa = require('ask-sdk-core');
-const AWS = require('aws-sdk');
 const { v4: uuidv4 } = require('uuid');
+const log = require('../lib/log')
 
 
 const CheckAccountLinkedInterceptor = {
     async process(handlerInput) {
+        log.info("CheckAccountLinkedInterceptor:::ACCESSTOKEN", handlerInput.requestEnvelope.session.user.accessToken);
+
         const accessToken = handlerInput.requestEnvelope.session.user.accessToken;
 
         if (!accessToken) {

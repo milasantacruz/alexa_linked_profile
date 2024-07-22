@@ -1,11 +1,32 @@
-const log = require('../lib/log')
+const Alexa = require('ask-sdk-core');
+const AWS = require('aws-sdk');
+const { v4: uuidv4 } = require('uuid');
+
 
 const CheckAccountLinkedInterceptor = {
-  
-    process(handlerInput) {
-        log.info("CheckAccountLinkedInterceptor:::", handlerInput.requestEnvelope.request.type);
-        
-    }
-}
+    async process(handlerInput) {
+        const accessToken = handlerInput.requestEnvelope.session.user.accessToken;
 
-module.exports = CheckAccountLinkedInterceptor
+        if (!accessToken) {
+            const token = uuidv4();
+            const userPoolId ="us-east-1_MHOLeGbES"; // Replace with your user pool ID
+            const clientId = "odrahfu5lgbutk3p6p18e8bgu"
+            return handlerInput.responseBuilder
+                .addDirectivePayload({
+                    type: 'Connections.SendRequest',
+                    token: token,
+                    request: {
+                        type: 'ConnectionRequest',
+                        name: 'Lucia te cuida',
+                        payload: {
+                            userPoolId: userPoolId,
+                            clientId: clientId
+                        }
+                    }
+                })
+                .getResponse();
+        }
+    }
+};
+
+module.exports = CheckAccountLinkedInterceptor;

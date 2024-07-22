@@ -41,4 +41,4 @@ const GetProfileIntentHandler = {
     }
 };
 
-module.export = GetProfileIntentHandler;
+module.exports = GetProfileIntentHandler;

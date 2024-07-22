@@ -1,7 +1,8 @@
+const log = require('../lib/log')
 
 const CheckAccountLinkedInterceptor = {
     process(handlerInput) {
-        console.log("CheckAccountLinkedInterceptor:::", handlerInput.requestEnvelope.request.type);
+        log.info("CheckAccountLinkedInterceptor:::", handlerInput.requestEnvelope.request.type);
         
     }
 };

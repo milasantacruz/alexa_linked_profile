@@ -26,7 +26,8 @@ const CheckAccountLinkedInterceptor = {
             const userPoolId ="us-east-1_MHOLeGbES"; // Replace with your user pool ID
             const clientId = "odrahfu5lgbutk3p6p18e8bgu"
             log.info("CheckAccountLinkedInterceptor:::NOTOKEN", token);
-
+            //DOCS:
+            //http://ask-sdk-node-typedoc.s3-website-us-east-1.amazonaws.com/index.html#directive
             //http://ask-sdk-node-typedoc.s3-website-us-east-1.amazonaws.com/interfaces/interfaces.connections.sendrequestdirective.html
             return handlerInput.responseBuilder
                 .addDirective({
@@ -41,6 +42,7 @@ const CheckAccountLinkedInterceptor = {
                         }
                     }
                 })
+                .withShouldEndSession(true)
                 .getResponse();
         }
     }

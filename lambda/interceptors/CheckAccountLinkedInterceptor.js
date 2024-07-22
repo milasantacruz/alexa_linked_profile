@@ -42,7 +42,7 @@ const CheckAccountLinkedInterceptor = {
                         }
                     }
                 })
-                .withShouldEndSession(false)
+                .withShouldEndSession(true)
                 .getResponse();
         }
     }

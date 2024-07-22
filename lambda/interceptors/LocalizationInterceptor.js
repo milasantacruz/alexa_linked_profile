@@ -1,11 +1,9 @@
 const i18n = require('i18next')
 const sprintf = require('i18next-sprintf-postprocessor')
 const languageStrings = require('../i18n/languageStrings')
-const log = require("../lib/log");
+
 const LocalizationInterceptor = {
   process (handlerInput) {
-    log.info('LocalizationInterceptor:::: ')
-
     const localizationClient = i18n.use(sprintf).init({
       lng: handlerInput.requestEnvelope.request.locale,
       resources: languageStrings

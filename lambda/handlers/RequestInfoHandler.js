@@ -1,50 +1,59 @@
-const AWS = require('aws-sdk');
-const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider();
+function getResolvedSlotIDValue (request, slotName) {
+  const slot = request.intent.slots[slotName]
+
+  if (slot &&
+    slot.value &&
+    slot.resolutions &&
+    slot.resolutions.resolutionsPerAuthority &&
+    slot.resolutions.resolutionsPerAuthority[0] &&
+    slot.resolutions.resolutionsPerAuthority[0].values &&
+    slot.resolutions.resolutionsPerAuthority[0].values[0] &&
+    slot.resolutions.resolutionsPerAuthority[0].values[0].value &&
+    slot.resolutions.resolutionsPerAuthority[0].values[0].value.name) {
+
+    return slot.resolutions.resolutionsPerAuthority[0].values[0].value.id
+  }
+  return null
+}
+
 
 const RequestInfoHandler = {
-  canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-        && handlerInput.requestEnvelope.request.intent.name === 'RequestInfo';
-    },
-    async handle(handlerInput) {
-      console.log('RequestInfoHandler::::: RequestInfoHandler');
-      
-      const userId = handlerInput.requestEnvelope.session.user.userId;
-      const userPoolId ="us-east-1_MHOLeGbES"; // Replace with your user pool ID
-      const clientId = "odrahfu5lgbutk3p6p18e8bgu"; // Replace with your app client ID
-      console.log(userPoolId);
-      console.log(clientId);
-      console.log(userId);
+  canHandle (handlerInput) {
+    const request = handlerInput.requestEnvelope.request
+    return (request.type === 'IntentRequest'
+      && request.intent.name === 'RequestInfo')
+  },
+  handle (handlerInput) {
+    const request = handlerInput.requestEnvelope.request
+    const requestAttributes = handlerInput.attributesManager.getRequestAttributes()
+    const sessionAttributes = handlerInput.attributesManager.getSessionAttributes()
+    const repromptOutput = requestAttributes.t('FOLLOW_UP_MESSAGE')
+    const cardTitle = requestAttributes.t('SKILL_NAME')
 
-        const params = 
-        {
-            DestinationUser: {
-                ProviderAttributeName: 'Cognito', // This should be 'Cognito' for Cognito user pools
-                ProviderAttributeValue: userId, // The user ID of the user in your Cognito user pool
-                ProviderName: 'Cognito' // This should be 'Cognito' for Cognito user pools
-            },
-            UserPoolId: userPoolId // The ID of your Cognito user pool
-        };
+    let speakOutput = ''
 
-        try {
-            const response = await cognitoIdentityServiceProvider.adminLinkProviderForUser(params).promise();
-            const linkingResponse = handlerInput.responseBuilder
-                .addLinkAccountCard()
-                .withLinkAccountRequest({
-                    destinationUserId: userId,
-                    userPoolId: userPoolId,
-                    clientId: clientId
-                })
-                .getResponse();
-            console.log(`response:${response}`)
-            return linkingResponse;
-        } catch (err) {
-            console.log(err);
-            return handlerInput.responseBuilder
-                .speak('Sorry, I could not initiate account linking.')
-                .getResponse();
-        }
-    }     
+    let inquiryTypeId = getResolvedSlotIDValue(request, 'infoTypeRequested')
+    if (!inquiryTypeId) {
+      inquiryTypeId = 'fullProfile'
+      speakOutput += requestAttributes.t('NOT_SURE_OF_TYPE_MESSAGE')
+    } else {
+      if (inquiryTypeId === 'emailAddress' || inquiryTypeId === 'fullProfile') {
+        speakOutput += requestAttributes.t('REPORT_EMAIL_ADDRESS', sessionAttributes.emailAddress)
+      }
+
+      if (inquiryTypeId === 'userName' || inquiryTypeId === 'fullProfile') {
+        speakOutput += requestAttributes.t('REPORT_USERNAME', sessionAttributes.userName)
+      }
+    }
+
+    speakOutput += repromptOutput
+
+    return handlerInput.responseBuilder.
+      speak(speakOutput).
+      reprompt(repromptOutput).
+      withSimpleCard(cardTitle, speakOutput).
+      getResponse()
+  }
 }
 
 module.exports = RequestInfoHandler

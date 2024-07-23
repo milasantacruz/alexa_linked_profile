@@ -11,6 +11,7 @@ const RequestInfoHandler = {
         const accessToken = handlerInput.requestEnvelope.context.System.user.accessToken;
         
         if (!accessToken) {
+            log.info("reqInfoHandler:::NOTOKEN");
             return handlerInput.responseBuilder
                 .speak('Please link your account to use this skill.')
                 .withLinkAccountCard()

@@ -3,8 +3,8 @@ const AWS = require('aws-sdk');
 const log = require('../lib/log')
 const RequestInfoHandler = {
     canHandle(handlerInput) {
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'RequestInfo';
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+        && handlerInput.requestEnvelope.request.intent.name === 'RequestInfo';
     },
     async handle(handlerInput) {
         log.info("reqInfoHandler:::");

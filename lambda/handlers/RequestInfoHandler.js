@@ -6,6 +6,7 @@ const RequestInfoHandler = {
         && handlerInput.requestEnvelope.request.intent.name === 'RequestInfo';
     },
     async handle(handlerInput) {
+        console.log('RequestInfoHandler:::');
         const accessToken = handlerInput.requestEnvelope.context.System.user.accessToken;
         
         if (!accessToken) {

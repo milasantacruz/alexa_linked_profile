@@ -1,50 +1,55 @@
+const Alexa = require('ask-sdk-core');
 const AWS = require('aws-sdk');
-const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider();
 
 const RequestInfoHandler = {
-  canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-        && handlerInput.requestEnvelope.request.intent.name === 'RequestInfo';
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'RequestInfo';
     },
     async handle(handlerInput) {
-      console.log('RequestInfoHandler::::: RequestInfoHandler');
-      
-      const userId = handlerInput.requestEnvelope.session.user.userId;
-      const userPoolId ="us-east-1_MHOLeGbES"; // Replace with your user pool ID
-      const clientId = "odrahfu5lgbutk3p6p18e8bgu"; // Replace with your app client ID
-      console.log(userPoolId);
-      console.log(clientId);
-      console.log(userId);
-
-        const params = 
-        {
-            DestinationUser: {
-                ProviderAttributeName: 'Cognito', // This should be 'Cognito' for Cognito user pools
-                ProviderAttributeValue: userId, // The user ID of the user in your Cognito user pool
-                ProviderName: 'Cognito' // This should be 'Cognito' for Cognito user pools
-            },
-            UserPoolId: userPoolId // The ID of your Cognito user pool
-        };
-
-        try {
-            const response = await cognitoIdentityServiceProvider.adminLinkProviderForUser(params).promise();
-            const linkingResponse = handlerInput.responseBuilder
-                .addLinkAccountCard()
-                .withLinkAccountRequest({
-                    destinationUserId: userId,
-                    userPoolId: userPoolId,
-                    clientId: clientId
-                })
-                .getResponse();
-            console.log(`response:${response}`)
-            return linkingResponse;
-        } catch (err) {
-            console.log(err);
+        const accessToken = handlerInput.requestEnvelope.context.System.user.accessToken;
+        
+        if (!accessToken) {
             return handlerInput.responseBuilder
-                .speak('Sorry, I could not initiate account linking.')
+                .speak('Please link your account to use this skill.')
+                .withLinkAccountCard()
                 .getResponse();
         }
-    }     
+
+        try {
+            const userData = await getUserProfile(accessToken);
+            const speechText = `Your profile name is ${userData.name} and your email is ${userData.email}.`;
+            
+            return handlerInput.responseBuilder
+                .speak(speechText)
+                .getResponse();
+        } catch (error) {
+            return handlerInput.responseBuilder
+                .speak('There was an error fetching your profile information.')
+                .getResponse();
+        }
+    }
+}
+
+async function getUserProfile(accessToken) {
+    const cognito = new AWS.CognitoIdentityServiceProvider();
+    
+    // Assuming accessToken is the token to get the user details
+    const params = {
+        AccessToken: accessToken
+    };
+
+    const user = await cognito.getUser(params).promise();
+    
+    const attributes = user.UserAttributes.reduce((acc, attr) => {
+        acc[attr.Name] = attr.Value;
+        return acc;
+    }, {});
+
+    return {
+        name: attributes['name'] || 'Unknown',
+        email: attributes['email'] || 'Unknown'
+    };
 }
 
 module.exports = RequestInfoHandler

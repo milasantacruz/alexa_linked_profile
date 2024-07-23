@@ -1,4 +1,3 @@
-const Alexa = require('ask-sdk-core');
 const AWS = require('aws-sdk');
 const log = require('../lib/log')
 const RequestInfoHandler = {
@@ -31,7 +30,7 @@ const RequestInfoHandler = {
                 .getResponse();
         }
     }
-}
+};
 
 async function getUserProfile(accessToken) {
     log.info("getUserProfile:::", accessToken);

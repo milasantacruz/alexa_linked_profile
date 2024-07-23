@@ -7,6 +7,7 @@ const RequestInfoHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'RequestInfo';
     },
     async handle(handlerInput) {
+        log.info("reqInfoHandler:::");
         const accessToken = handlerInput.requestEnvelope.context.System.user.accessToken;
         
         if (!accessToken) {

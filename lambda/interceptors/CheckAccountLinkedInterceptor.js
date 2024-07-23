@@ -42,6 +42,7 @@ const CheckAccountLinkedInterceptor = {
                         }
                     }
                 })
+                .withShouldEndSession(true)
                 .getResponse();
         }
         return handlerInput.responseBuilder.getResponse();
